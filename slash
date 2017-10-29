@@ -4,7 +4,8 @@ $INCOMING_WEBHOOK_URL = "https://hooks.slack.com/services/T78STRANA/B7RK361K4/W3
 $USERNAME = "Y U NO GOOGLE GOD DAMNIT?";
 $ICON = ":troll:";
 $text = $_POST['text'];
-$channel_name = $_POST['channel_name'];
+// replaced "channel_name" with "channel_id" to allow this to work in private groups and direct messages
+$channel_id = $_POST['channel_id'];
 $curl = curl_init($INCOMING_WEBHOOK_URL);
 curl_setopt($curl, CURLOPT_POST, true);
 $response = "https://www.google.com/?#q=".rawurlencode($text);
@@ -12,7 +13,7 @@ $payload = array(
     'text' => rawurlencode($response),
     'username' => $USERNAME,
     'icon_emoji' => $ICON,
-    'channel' => "#".$channel_name
+    'channel' => $channel_id
 );
 $jsonPayload = "payload=".json_encode($payload);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonPayload);
