@@ -1,4 +1,11 @@
-{
-  "response_type": "in_channel",
-  "text": "..."
-}
+<?php
+$slack_webhook_url = "https://hooks.slack.com/services/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";
+$icon_url = "https://emojipedia.org/eyeglasses/";
+$search_limit = "1";
+
+$text = $_POST['text'];
+$token = $_POST['token'];
+$channel_id = $_POST['channel_id'];
+$user_name = $_POST['user_name'];
+$encoded_text = urlencode($text);
+?>
