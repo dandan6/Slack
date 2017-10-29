@@ -1,32 +1,22 @@
-{
-  "name": "bz",
-  "version": "1.0.0",
-  "description": "The awesomest slash command evar.",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DEGoodmanWilson/easy-peasy-slash-command-app.git"
-  },
-  "keywords": [
-    "slack",
-    "slash command"
-  ],
-  "author": "D.E. Goodman-Wilson",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DEGoodmanWilson/easy-peasy-slash-command-app/issues"
-  },
-  "homepage": "https://github.com/DEGoodmanWilson/easy-peasy-slash-command-app#readme",
-  "engines": {
-    "node": "5.1.1"
-  },
-  "dependencies": {
-    "botkit": "0.0.5",
-    "botkit-storage-mongo": "^1.0.2",
-    "mongodb": "^1.4.39"
-  }
-}
+<?php
+// replace with your url you got here : https://my.slack.com/services/new/incoming-webhook
+$INCOMING_WEBHOOK_URL = "https://hooks.slack.com/services/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";
+$USERNAME = "Y U NO GOOGLE GOD DAMNIT?";
+$ICON = ":troll:";
+$text = $_POST['text'];
+// replaced "channel_name" with "channel_id" to allow this to work in private groups and direct messages
+$channel_id = $_POST['channel_id'];
+$curl = curl_init($INCOMING_WEBHOOK_URL);
+curl_setopt($curl, CURLOPT_POST, true);
+$response = "https://www.google.com/?#q=".rawurlencode($text);
+$payload = array(
+    'text' => rawurlencode($response),
+    'username' => $USERNAME,
+    'icon_emoji' => $ICON,
+    'channel' => $channel_id
+);
+$jsonPayload = "payload=".json_encode($payload);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonPayload);
+$return = curl_exec($curl);
+curl_close($curl);
+?>
